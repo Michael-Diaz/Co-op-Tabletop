@@ -21,9 +21,9 @@ public class ThrowDice : MonoBehaviour
             {
                 GameObject temp = (GameObject)Instantiate(dice, new Vector3(0,3,0), Quaternion.identity);
 
-                Dice temp2 = temp.GetComponent<Dice>();
+                Dice die = temp.GetComponent<Dice>();
 
-                temp2.ThrowDice(new Vector3(0, .5f, 1), 5);
+                die.ThrowDice(new Vector3(0, .5f, 1), 5);
             }
         }
     }
