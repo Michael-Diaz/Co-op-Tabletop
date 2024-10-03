@@ -10,12 +10,15 @@ public class DiceFace : MonoBehaviour
     public bool isFaceUp = false;
     public int faceNumber;
     public float threshold = 1;
-    public TextMeshProUGUI faceNumText;
+    public TextMeshProUGUI[] faceNumText;
 
     // Start is called before the first frame update
     void Start()
     {
-        faceNumText.text = faceNumber.ToString();
+        foreach (var face in faceNumText)
+        {
+            face.text = faceNumber.ToString();
+        }
     }
 
     // Update is called once per frame

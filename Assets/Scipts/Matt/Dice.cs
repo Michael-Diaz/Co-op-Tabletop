@@ -18,14 +18,18 @@ public class Dice : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ThrowDice(new Vector3(0, 1, 0), 5);
+            GetDiceFace();
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        /*if(Input.GetKeyDown(KeyCode.E))
-        {
-            GetDiceFace();
-        }*/
-
         if (diceMoving)
         {
             // Used to see if the die is not moving and the timer is not already running
