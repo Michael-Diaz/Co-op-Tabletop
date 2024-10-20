@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Dice_Manager : MonoBehaviour
 {
@@ -9,8 +12,12 @@ public class Dice_Manager : MonoBehaviour
 
     public List<GameObject> dice_prefabs;
     private List<string> dice_names = new List<string> { "d4", "d6", "d8", "d10", "d12", "d20" };
-
     public Dictionary<string, GameObject> dice_dictionary;
+
+    private Dictionary<Dice, int> dice_activeList;
+
+    private Dictionary<string, int> tESTDICT_D6;
+    private Dictionary<string, int> tESTDICT_D20;
 
     void Awake()
     {
@@ -22,36 +29,91 @@ public class Dice_Manager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void OnEnable()
+    {
+        Dice.onDiceRoll += WaitOnDie;
+    }
+
+    private void OnDisable()
+    {
+        Dice.onDiceRoll -= WaitOnDie;
+    }
+
     void Start()
     {
+        dice_dictionary = new Dictionary<string, GameObject>();
+
+        int dice_index = 0;
         foreach (GameObject die in dice_prefabs)
         {
             if (die != null)
-                dice_dictionary.Add(die.name, die);
+                dice_dictionary.Add(dice_names[dice_index], die);
+
+            dice_index++;
+        }
+
+        dice_activeList = new Dictionary<Dice, int>();
+
+        // === TESTING VARIABLES ===
+        tESTDICT_D6 = new Dictionary<string, int>();
+        tESTDICT_D6.Add("d6", 3);
+        
+        tESTDICT_D20 = new Dictionary<string, int>();
+        tESTDICT_D20.Add("d20", 1);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            TestA();
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            TestB();
         }
     }
 
+    async void TestA()
+    {
+        int sum = await DiceSum(tESTDICT_D6, 0);
+        Debug.Log($"SUM OF 3D6: {sum}");
+    }
+
+    async void TestB()
+    {
+        bool isSuccess = await DiceCheck(tESTDICT_D20, 3, 15);
+        Debug.Log($"DICE CHECK AGAINST 15 SUCCESS?: {isSuccess}");
+    }
+
     // Rolls a specified number of dice of each type (xd4 + yd6 + zd8... + modifier) and returns the sum
-    int DiceSum(Dictionary<string, int> total_dice, int total_mod)
+    public async Task<int> DiceSum(Dictionary<string, int> total_dice, int total_mod)
     {
         int dice_sum = 0;
 
+        var dice_queue = new List<Task<int>>();
         foreach (KeyValuePair<string, int> entry in total_dice) 
         {
             for (int i = 0; i < entry.Value; i++)
-                dice_sum += ThrowDie(entry.Key);
+                dice_queue.Add(ThrowDie(entry.Key));
         }
 
-        return dice_sum;
+        await Task.WhenAll(dice_queue);
+
+        foreach (var die_result in dice_queue)
+            dice_sum += await die_result;
+
+        return dice_sum + total_mod;
     }
 
 
     // Rolls the specified number of dice of each type against an equal number, and returns the victor
-    Object DiceContest(Object challenger, Dictionary<string, int> challenger_dice, int challenger_mod, 
-                       Object defender, Dictionary<string, int> defender_dice, int defender_mod)
+    public async Task<Object> DiceContest(Object challenger, Dictionary<string, int> challenger_dice, int challenger_mod, 
+                                   Object defender, Dictionary<string, int> defender_dice, int defender_mod)
     {
-        int challenger_total = DiceSum(challenger_dice, challenger_mod);
-        int defender_total = DiceSum(defender_dice, defender_mod);
+        int challenger_total = await DiceSum(challenger_dice, challenger_mod);
+        int defender_total = await DiceSum(defender_dice, defender_mod);
 
         if (challenger_total >= defender_total)
             return challenger;
@@ -60,9 +122,9 @@ public class Dice_Manager : MonoBehaviour
     }
 
     // Rolls the specified number of dice of each type against a static value, and returns the total and whether it was sucessful
-    bool DiceCheck(Dictionary<string, int> total_dice, int total_mod, int difficulty)
+    public async Task<bool> DiceCheck(Dictionary<string, int> total_dice, int total_mod, int difficulty)
     {
-        if (DiceSum(total_dice, total_mod) >= difficulty)
+        if (await DiceSum(total_dice, total_mod) >= difficulty)
             return true;
         else 
             return false;
@@ -70,22 +132,33 @@ public class Dice_Manager : MonoBehaviour
 
 
     // Rolls the specified number of dice of each type against a table, and returns the object at the index specified
-    Object DiceTable(Object[] table, Dictionary<string, int> total_dice, int total_mod, bool indexTotal_isRollTotal, bool indexTotal_isTotalClamped)
+    public async Task<Object> DiceTable(Object[] table, Dictionary<string, int> total_dice, int total_mod, bool indexTotal_isRollTotal, bool indexTotal_isTotalClamped)
     {
         int table_length = table.Length - 1;
         int index;
 
         if (indexTotal_isRollTotal)
-            index = DiceSum(total_dice, total_mod);
+            index = DiceSum(total_dice, total_mod).GetAwaiter().GetResult();
         else
         {
             index = 0;
 
+            var dice_queue = new List<Task<int>>();
             foreach (KeyValuePair<string, int> entry in total_dice)
             {
                 for (int i = 0; i < entry.Value; i++)
-                    index += ThrowDie(entry.Key) * ((int) Mathf.Pow(10, i));
+                    dice_queue.Add(ThrowDie(entry.Key));
             }
+
+            await Task.WhenAll(dice_queue);
+
+            int j = 0;
+            foreach (var die_result in dice_queue)
+            {
+                index += (await die_result) * ((int)Mathf.Pow(10, j));
+                j++;
+            }
+
         }
 
         if (indexTotal_isTotalClamped)
@@ -94,8 +167,8 @@ public class Dice_Manager : MonoBehaviour
             return table[index % (table_length)];
     }
 
-
-    int ThrowDie(string die_name)
+    // Will roll a single die and then wait for the event invoked by that die to return the value associated with it
+    private async Task<int> ThrowDie(string die_name)
     {
         GameObject die = (GameObject)Instantiate(dice_dictionary[die_name], new Vector3(0, 3, 0), Quaternion.identity);
         Dice die_script;
@@ -103,8 +176,20 @@ public class Dice_Manager : MonoBehaviour
         die_script = die.GetComponentInChildren<Dice>();
         die_script.ThrowDice(new Vector3(0, .5f, 1), 5);
 
-        // NEED TO GO INTO THE DICE SCRIPT AND TURN IT INTO AN EVENT THAT IS LISTENED TO HERE.
+        int die_retVal = -1;
 
-        return -1;
+        while (!dice_activeList.ContainsKey(die_script))
+            await Task.Yield();
+
+        die_retVal = dice_activeList[die_script];
+        dice_activeList.Remove(die_script);
+
+        return die_retVal;
+    }
+
+    // Listens for any events invoked by exisiting die prefabs
+    void WaitOnDie(Dice die_instance, int die_value)
+    {
+        dice_activeList.Add(die_instance, die_value);
     }
 }

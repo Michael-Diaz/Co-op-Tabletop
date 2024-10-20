@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Dice : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Dice : MonoBehaviour
     public float timer = 3;
     public bool timerRunning = false;
     public bool diceMoving = false;
+
+    public static event Action<Dice, int> onDiceRoll;
 
     void Awake()
     {
@@ -58,6 +61,8 @@ public class Dice : MonoBehaviour
      * variable set to true. It then assigns the number on the die face to the diceNum variable*/
     public void GetDiceFace()
     {
+        rb.isKinematic = true;
+
         foreach (DiceFace face in faces)
         {
             if (face.isFaceUp == true)
@@ -65,6 +70,8 @@ public class Dice : MonoBehaviour
                 diceNum = face.faceNumber;
             }
         }
+
+        onDiceRoll?.Invoke(this, diceNum);
     }
 
     /* This function takes in a vector named forceVector and a float named force. The function adds the force provided with the force provided
@@ -72,9 +79,9 @@ public class Dice : MonoBehaviour
      * force provided multiplied random floats between 0 and 1. The function then sets the diceMoving variable to true. */
     public void ThrowDice(Vector3 forceVector, float force)
     {
-        float rand1 = Random.Range(0.0f, 1.0f);
-        float rand2 = Random.Range(0.0f, 1.0f);
-        float rand3 = Random.Range(0.0f, 1.0f);
+        float rand1 = UnityEngine.Random.Range(0.0f, 1.0f);
+        float rand2 = UnityEngine.Random.Range(0.0f, 1.0f);
+        float rand3 = UnityEngine.Random.Range(0.0f, 1.0f);
         rb.AddForce(forceVector * force, ForceMode.Impulse);
         rb.AddTorque(force * rand1, force * rand2, force * rand3, ForceMode.Impulse);
 

@@ -123,12 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &289566300 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4258991299031993769, guid: 3dc37449a30b05e4190bc49922f57bff,
-    type: 3}
-  m_PrefabInstance: {fileID: 4844824061074247982}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &362856297
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +191,7 @@ Canvas:
   m_GameObject: {fileID: 362856297}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1453658230}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -223,7 +217,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 289566300}
+  - {fileID: 1556764074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -554,7 +548,7 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!1001 &4844824061074247982
+--- !u!1001 &1556764073
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -650,7 +644,7 @@ PrefabInstance:
     - target: {fileID: 4258991299031993769, guid: 3dc37449a30b05e4190bc49922f57bff,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -155
+      value: -160
       objectReference: {fileID: 0}
     - target: {fileID: 4258991299031993769, guid: 3dc37449a30b05e4190bc49922f57bff,
         type: 3}
@@ -672,6 +666,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3dc37449a30b05e4190bc49922f57bff, type: 3}
+--- !u!224 &1556764074 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4258991299031993769, guid: 3dc37449a30b05e4190bc49922f57bff,
+    type: 3}
+  m_PrefabInstance: {fileID: 1556764073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -133,6 +133,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 212591869503324129}
+        m_TargetAssemblyTypeName: UI_DiceRoller, Assembly-CSharp
+        m_MethodName: PressCancel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &981026298856554053
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +156,7 @@ GameObject:
   - component: {fileID: 4258991299031993769}
   - component: {fileID: 2252749887509315245}
   - component: {fileID: 5732773686723198319}
+  - component: {fileID: 212591869503324129}
   m_Layer: 5
   m_Name: Manual Dice Roller
   m_TagString: Untagged
@@ -211,6 +224,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b25f83ff50fbe743aa6860e833ed26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &212591869503324129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981026298856554053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0025fb5f358fdc4fb9449e96f11d29c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 8708848113585660335}
+  - {fileID: 2859557801049057390}
+  - {fileID: 2871121968631033076}
+  - {fileID: 8402138345706137700}
+  - {fileID: 2445498608245171599}
+  - {fileID: 8739610161328103848}
 --- !u!1 &2588006818013763212
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +366,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5732773686723198319}
         m_TargetAssemblyTypeName: UI_DiceRoller_Anim, Assembly-CSharp
+        m_MethodName: PressRoll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 212591869503324129}
+        m_TargetAssemblyTypeName: UI_DiceRoller, Assembly-CSharp
         m_MethodName: PressRoll
         m_Mode: 1
         m_Arguments:
@@ -664,7 +708,7 @@ PrefabInstance:
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -673,12 +717,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
@@ -688,18 +747,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IncreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8739610161328103848}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -708,12 +787,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
@@ -723,13 +817,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DecreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8739610161328103848}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 6188347048748739674, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -857,6 +971,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2342783877625942964}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8739610161328103848 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470098872788267548, guid: 4b14209dd0e073f44921930375babaef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2342783877625942964}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2384202534864130995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -873,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -882,12 +1008,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
@@ -897,18 +1038,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IncreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8708848113585660335}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -917,12 +1078,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
@@ -932,13 +1108,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DecreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8708848113585660335}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 6188347048748739674, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1066,6 +1262,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2384202534864130995}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8708848113585660335 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470098872788267548, guid: 4b14209dd0e073f44921930375babaef,
+    type: 3}
+  m_PrefabInstance: {fileID: 2384202534864130995}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3265123929403136632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1082,7 +1290,7 @@ PrefabInstance:
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1091,12 +1299,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
@@ -1106,18 +1329,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IncreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8402138345706137700}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1126,12 +1369,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
@@ -1141,13 +1399,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DecreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 8402138345706137700}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 6188347048748739674, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1275,6 +1553,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3265123929403136632}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8402138345706137700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470098872788267548, guid: 4b14209dd0e073f44921930375babaef,
+    type: 3}
+  m_PrefabInstance: {fileID: 3265123929403136632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8663307897949214611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1291,7 +1581,7 @@ PrefabInstance:
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1300,12 +1590,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
@@ -1315,18 +1620,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IncreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2445498608245171599}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1335,12 +1660,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
@@ -1350,13 +1690,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DecreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2445498608245171599}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 6188347048748739674, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1484,6 +1844,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8663307897949214611}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2445498608245171599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470098872788267548, guid: 4b14209dd0e073f44921930375babaef,
+    type: 3}
+  m_PrefabInstance: {fileID: 8663307897949214611}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9084374607139544808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1500,7 +1872,7 @@ PrefabInstance:
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1509,12 +1881,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
@@ -1524,18 +1911,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IncreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2871121968631033076}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1544,12 +1951,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
@@ -1559,13 +1981,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DecreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2871121968631033076}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 6188347048748739674, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1693,6 +2135,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 9084374607139544808}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2871121968631033076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470098872788267548, guid: 4b14209dd0e073f44921930375babaef,
+    type: 3}
+  m_PrefabInstance: {fileID: 9084374607139544808}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9107782640392133234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1709,7 +2163,7 @@ PrefabInstance:
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1718,12 +2172,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
@@ -1733,18 +2202,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: IncreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2859557801049057390}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2042922298581441039, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1753,12 +2242,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 5732773686723198319}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 212591869503324129}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
@@ -1768,13 +2272,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DecreaseTotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UI_DiceRoller_Anim, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UI_DiceRoller, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2859557801049057390}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064354118392881921, guid: 4b14209dd0e073f44921930375babaef,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: TMPro.TextMeshProUGUI, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 6188347048748739674, guid: 4b14209dd0e073f44921930375babaef,
         type: 3}
@@ -1902,3 +2426,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 9107782640392133234}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2859557801049057390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6470098872788267548, guid: 4b14209dd0e073f44921930375babaef,
+    type: 3}
+  m_PrefabInstance: {fileID: 9107782640392133234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
