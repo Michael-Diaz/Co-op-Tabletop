@@ -34,8 +34,6 @@ public class PlayerNetwork : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-
-
         if (Input.GetKeyDown(KeyCode.T)) {
             SpawnObjectServerRpc();
         }
@@ -58,13 +56,13 @@ public class PlayerNetwork : NetworkBehaviour
         //}
     }
 
-    private void FixedUpdate()
-    {
-        if (spawnedObject != null)
-        {
-            OrbitAroundPlayer();
-        }
-    }
+    //private void FixedUpdate()
+    //{
+    //    if (spawnedObject != null)
+    //    {
+    //        OrbitAroundPlayer();
+    //    }
+    //}
 
     [ServerRpc]
     private void MovePlayerServerRpc(Vector3 movementInput, ServerRpcParams rpcParams = default)
