@@ -34,9 +34,19 @@ public class Camera_Controller : MonoBehaviour
         }
 
         Vector3 cam_xPosDelta = Input.GetAxis("Horizontal") * transform.TransformDirection(Vector3.right) * cam_moveSpeed * Time.deltaTime;
+        Vector3 cam_yPosDelta = Vector3.zero;
         Vector3 cam_zPosDelta = Input.GetAxis("Vertical") * transform.TransformDirection(Vector3.forward) * cam_moveSpeed * Time.deltaTime;
 
-        transform.position += cam_xPosDelta + cam_zPosDelta;
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            cam_yPosDelta = -1.0f * transform.TransformDirection(Vector3.up) * cam_moveSpeed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            cam_yPosDelta = 1.0f * transform.TransformDirection(Vector3.up) * cam_moveSpeed * Time.deltaTime;
+        }
+
+        transform.position += cam_xPosDelta + cam_yPosDelta + cam_zPosDelta;
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
             UnlockCursor();
