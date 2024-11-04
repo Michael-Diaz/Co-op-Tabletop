@@ -16,9 +16,6 @@ public class Dice_Manager : MonoBehaviour
 
     private Dictionary<Dice, int> dice_activeList;
 
-    private Dictionary<string, int> tESTDICT_D6;
-    private Dictionary<string, int> tESTDICT_D20;
-
     void Awake()
     {
         if (Instance != null)
@@ -53,38 +50,6 @@ public class Dice_Manager : MonoBehaviour
         }
 
         dice_activeList = new Dictionary<Dice, int>();
-
-        // === TESTING VARIABLES ===
-        tESTDICT_D6 = new Dictionary<string, int>();
-        tESTDICT_D6.Add("d6", 3);
-        
-        tESTDICT_D20 = new Dictionary<string, int>();
-        tESTDICT_D20.Add("d20", 1);
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            TestA();
-        }
-
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            TestB();
-        }
-    }
-
-    async void TestA()
-    {
-        int sum = await DiceSum(tESTDICT_D6, 0);
-        Debug.Log($"SUM OF 3D6: {sum}");
-    }
-
-    async void TestB()
-    {
-        bool isSuccess = await DiceCheck(tESTDICT_D20, 3, 15);
-        Debug.Log($"DICE CHECK AGAINST 15 SUCCESS?: {isSuccess}");
     }
 
     // Rolls a specified number of dice of each type (xd4 + yd6 + zd8... + modifier) and returns the sum
