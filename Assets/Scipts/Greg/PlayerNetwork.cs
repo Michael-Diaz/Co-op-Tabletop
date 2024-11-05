@@ -12,7 +12,7 @@ public class PlayerNetwork : NetworkBehaviour
     private NetworkRigidbody networkRb;
     private Vector3 movementInput;
     public float moveSpeed = 5f;
-
+    //[SerializeField] private float interpolationSpeed = 10f;
     [SerializeField] private GameObject spawnObjectPrefab;
     private GameObject spawnedObject;
     [SerializeField] public NetworkVariable<FixedString32Bytes> userName { get; private set; } = new NetworkVariable<FixedString32Bytes>("", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -50,10 +50,11 @@ public class PlayerNetwork : NetworkBehaviour
             MovePlayerServerRpc(movementInput);
         }
 
-        //if (spawnedObject != null)
-        //{
-        //    OrbitAroundPlayer();
-        //}
+        if (spawnedObject != null)
+        {
+            UpdateOrbitPositionServerRpc();
+            //OrbitAroundPlayer();
+        }
     }
 
     //private void FixedUpdate()
@@ -85,27 +86,45 @@ public class PlayerNetwork : NetworkBehaviour
             Debug.Log($"Updated Velocity: {transform.position} by client {OwnerClientId}");
     }
 
-    private void OrbitAroundPlayer()
+    [ServerRpc]
+    private void UpdateOrbitPositionServerRpc()
     {
         orbitAngle += orbitSpeed * Time.deltaTime;
         float radians = orbitAngle * Mathf.Deg2Rad;
         Vector3 offset = new Vector3(Mathf.Cos(radians) * orbitRadius, 0, Mathf.Sin(radians) * orbitRadius);
-        spawnedObject.transform.position = transform.position + offset;
-        Debug.Log($"Spawned Object Position (Server): {spawnedObject.transform.position}");
+        Vector3 newPosition =  transform.position + offset;
+        UpdateOrbitPositionClientRpc(newPosition);
+        //Debug.Log($"Spawned Object Position (Server): {spawnedObject.transform.position}");
     }
+
+    [ClientRpc]
+    private void UpdateOrbitPositionClientRpc(Vector3 newPosition)
+    {
+        if(spawnedObject != null)
+        {
+            spawnedObject.transform.position = newPosition;//Vector3.Lerp(spawnedObject.transform.position, newPosition, Time.deltaTime * interpolationSpeed);
+            Debug.Log($"Spawned Object Position (Server): {spawnedObject.transform.position}");
+        }
+        //orbitAngle += orbitSpeed * Time.deltaTime;
+        //float radians = orbitAngle * Mathf.Deg2Rad;
+        //Vector3 offset = new Vector3(Mathf.Cos(radians) * orbitRadius, 0, Mathf.Sin(radians) * orbitRadius);
+        //spawnedObject.transform.position = transform.position + offset;
+    }
+
     public override void OnNetworkSpawn()
     {
-        Debug.Log($"Network SPawn called for clientId: {OwnerClientId}, IsOWner {IsOwner}");
+        //Debug.Log($"Network SPawn called for clientId: {OwnerClientId}, IsOWner {IsOwner}");
         if (IsOwner)
         {
-            userName.Value = LoadUsername();
-            Debug.Log($"Network Spawn clientId: {OwnerClientId}, IsOWner {IsOwner}");
+            string username = PlayerPrefs.GetString("Username", "Guest");
+            userName.Value = username;
+            Debug.Log($"On Network Spawn in Player Network clientId: {OwnerClientId}, IsOWner {IsOwner} Username: {userName.Value}");
 
         }
     }
     public string LoadUsername()
     {
-        return PlayerPrefs.GetString("Username", "");
+        return PlayerPrefs.GetString("Username");
     }
     [ServerRpc]
     private void SpawnObjectServerRpc(ServerRpcParams rpcParams = default)
@@ -122,6 +141,7 @@ public class PlayerNetwork : NetworkBehaviour
         if (networkObject != null)
         {
             networkObject.Spawn(true);
+            NotifyClientsOfSpawnedObjectClientRpc(spawnedObject.GetComponent<NetworkObject>().NetworkObjectId);
         }
         else
         {
@@ -136,9 +156,35 @@ public class PlayerNetwork : NetworkBehaviour
             Debug.Log("No Object to despawn");
             return;
         }
+        NetworkObject networkObject = spawnedObject.GetComponent<NetworkObject>();
 
-        spawnedObject.GetComponent<NetworkObject>().Despawn(true);
-        Destroy(spawnedObject);
-        spawnedObject = null;
+        if(networkObject != null)
+        {
+            NotifyClientsOfDespawnedObjectClientRpc(networkObject.NetworkObjectId);
+            networkObject.Despawn(true);
+            Destroy(spawnedObject);
+            spawnedObject = null;
+        }
     }
+
+    [ClientRpc]
+    private void NotifyClientsOfSpawnedObjectClientRpc(ulong networkObjectId, ClientRpcParams rpcParams = default)
+    {
+        NetworkObject networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[networkObjectId];
+        if (networkObject != null)
+        {
+            Debug.Log($"SpawnedObject for Clients {networkObjectId}");
+        }
+    }
+    [ClientRpc]
+    private void NotifyClientsOfDespawnedObjectClientRpc(ulong networkObjectId, ClientRpcParams rpcParams = default)
+    {
+        if(NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(networkObjectId, out var networkObject))
+        {
+            networkObject.Despawn();
+            Destroy(networkObject.gameObject);
+            Debug.Log($"DespawnedObject for Clients {networkObjectId}");
+        }
+    }
+
 }
