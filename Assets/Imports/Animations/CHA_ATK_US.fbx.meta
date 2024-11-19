@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 36313aa1ad8dbe840847d8aa706dd9e7
+guid: b2795c6e42450bc4ea0a8110bebb518c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -91,7 +91,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: mixamorig 1:Hips
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
