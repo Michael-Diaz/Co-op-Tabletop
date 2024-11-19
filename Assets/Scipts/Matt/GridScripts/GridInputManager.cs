@@ -16,6 +16,7 @@ public class GridInputManager : MonoBehaviour
 
     public event Action OnClicked, OnExit;
 
+    /* This Update gets the input from the mouse and implements the OnClicked and OnExt functions if they exist */
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -31,6 +32,7 @@ public class GridInputManager : MonoBehaviour
     public bool IsPointerOverUI()
         => EventSystem.current.IsPointerOverGameObject();
 
+    /* Gets the mouse position on the layermask using a ray cast */
     public Vector3 GetSelectedMapPosition()
     {
         Vector3 mousePos = Input.mousePosition;

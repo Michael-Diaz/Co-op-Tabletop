@@ -7,6 +7,7 @@ public class GridData
 {
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
+    /* Gets the data for the object using the Object ID and places the object in its corresponding cell in the Dictionary if there is nothing in that cell*/
     public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex)
     {
         List<Vector3Int> positionsToOccupy = CalculatePositions(gridPosition, objectSize);
@@ -22,6 +23,7 @@ public class GridData
         }
     }
 
+    /* This function gets the cells that would be occupied with the current object and returns a list with those positions*/
     private List<Vector3Int> CalculatePositions(Vector3Int gridPosition, Vector2Int objectSize)
     {
         List<Vector3Int> returnVal = new();
@@ -36,6 +38,7 @@ public class GridData
         return returnVal;
     }
 
+    /* Checks if the cells the object would be placed in already have an object in them.*/
     public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
@@ -51,6 +54,7 @@ public class GridData
         return true;
     }
 
+    /* Returns the PlacedObjectIndex for a grid position or -1 if it doesn't exist*/
     internal int getRepresentationIndex(Vector3Int gridPosition)
     {
         if (!placedObjects.ContainsKey(gridPosition))
@@ -63,6 +67,7 @@ public class GridData
         }
     }
 
+    /* Removes the occupied positions in the Dictionary for the sent grid position*/
     internal void RemoveObjectAt(Vector3Int gridPosition)
     {
         foreach(var pos in placedObjects[gridPosition].occupidePositions)
