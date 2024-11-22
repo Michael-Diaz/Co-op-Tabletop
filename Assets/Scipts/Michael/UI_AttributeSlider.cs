@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,12 +19,14 @@ public class UI_AttributeSlider : MonoBehaviour
         Scale_Z
     };
 
-    [SerializeField] private List<TargetAttribute> attribute;
+    [SerializeField] private List<TargetAttribute> attributes;
+
+    [Header("Bone Reference(s)")]
 
     [SerializeField] private Transform attribute_transform;
     private Vector3 attribute_transform_originalPosition;
     private Vector3 attribute_transform_originalRotation;
-    private Vector3 attribute_transform_originalScale;
+    private Vector3 attribute_transform_originalWorldScale;
 
     [SerializeField] private bool attribute_isMirrored;
     [SerializeField] private Transform attribute_transformMirror;
@@ -32,6 +35,11 @@ public class UI_AttributeSlider : MonoBehaviour
     private Vector3 attribute_transformMirror_originalScale;
 
     private Dictionary<Transform, Dictionary<string, Vector3>> attribute_transformChildren_data;
+
+    [Header("Hierarchy Script References")]
+
+    [SerializeField] private UI_AttributeSlider attribute_transformParent_script;
+    [SerializeField] private List<UI_AttributeSlider> attribute_transformChildren_scripts;
 
     private Slider attribute_slider;
 
@@ -42,13 +50,13 @@ public class UI_AttributeSlider : MonoBehaviour
 
         attribute_transform_originalPosition = attribute_transform.position;
         attribute_transform_originalRotation = attribute_transform.eulerAngles;
-        attribute_transform_originalScale = attribute_transform.localScale;
+        attribute_transform_originalWorldScale = attribute_transform.lossyScale;
 
         if (attribute_isMirrored)
         {
             attribute_transformMirror_originalPosition = attribute_transformMirror.position;
             attribute_transformMirror_originalRotation = attribute_transformMirror.eulerAngles;
-            attribute_transformMirror_originalScale = attribute_transformMirror.localScale;
+            attribute_transformMirror_originalScale = attribute_transformMirror.lossyScale;
         }
 
         attribute_transformChildren_data = new Dictionary<Transform, Dictionary<string, Vector3>>();
@@ -57,14 +65,33 @@ public class UI_AttributeSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    public Transform GetBoneReference()
+    {
+        return attribute_transform;
+    }
+
+    public Transform GetMirrorBoneReference()
+    {
+        return attribute_transformMirror;
+    }
+
+    public Dictionary<string, Vector3> GetOriginalBoneTransform()
+    {
+        Dictionary<string, Vector3> retVal = new Dictionary<string, Vector3>();
+        retVal.Add("original_pos", attribute_transform_originalPosition);
+        retVal.Add("original_rot", attribute_transform_originalRotation);
+        retVal.Add("original_scale", attribute_transform_originalWorldScale);
+
+        return retVal;
     }
 
     public void UpdateModel()
     {
-        foreach (TargetAttribute a in attribute)
+        foreach (TargetAttribute a in attributes)
         {
-            int attribute_intVal = (int) a;
+            int attribute_intVal = (int)a;
 
             if (attribute_intVal <= 2)
                 UpdateModelPosition(a);
@@ -77,9 +104,9 @@ public class UI_AttributeSlider : MonoBehaviour
 
     private void UpdateModelPosition(TargetAttribute a)
     {
-        float pos_x = a == TargetAttribute.Position_X ? attribute_slider.value + attribute_transformMirror_originalPosition.x : attribute_transform.eulerAngles.x;
-        float pos_y = a == TargetAttribute.Position_Y ? attribute_slider.value + attribute_transformMirror_originalPosition.y : attribute_transform.eulerAngles.y;
-        float pos_z = a == TargetAttribute.Position_Z ? attribute_slider.value + attribute_transformMirror_originalPosition.z : attribute_transform.eulerAngles.z;
+        float pos_x = a == TargetAttribute.Position_X ? attribute_slider.value + attribute_transformMirror_originalPosition.x : attribute_transform.position.x;
+        float pos_y = a == TargetAttribute.Position_Y ? attribute_slider.value + attribute_transformMirror_originalPosition.y : attribute_transform.position.y;
+        float pos_z = a == TargetAttribute.Position_Z ? attribute_slider.value + attribute_transformMirror_originalPosition.z : attribute_transform.position.z;
 
         attribute_transform.position = new Vector3(pos_x, pos_y, pos_z);
     }
@@ -95,9 +122,18 @@ public class UI_AttributeSlider : MonoBehaviour
 
     private void UpdateModelScale(TargetAttribute a)
     {
-        float scale_x = a == TargetAttribute.Scale_X ? attribute_slider.value + attribute_transform_originalScale.x : attribute_transform.localScale.x;
-        float scale_y = a == TargetAttribute.Scale_Y ? attribute_slider.value + attribute_transform_originalScale.y : attribute_transform.localScale.y;
-        float scale_z = a == TargetAttribute.Scale_Z ? attribute_slider.value + attribute_transform_originalScale.z : attribute_transform.localScale.z;
+        Vector3 attribute_transformParent_worldScale;
+        if (attribute_transformParent_script != null)
+            attribute_transformParent_worldScale = attribute_transformParent_script.GetOriginalBoneTransform()["original_scale"];
+        else
+            attribute_transformParent_worldScale = new Vector3(100.0f, 100.0f, 100.0f);
+
+        float scale_x = a == TargetAttribute.Scale_X ? ((attribute_slider.value * attribute_transformParent_worldScale.x) + attribute_transform_originalWorldScale.x) / attribute_transform.parent.lossyScale.x
+                                                     : attribute_transform.localScale.x;
+        float scale_y = a == TargetAttribute.Scale_Y ? ((attribute_slider.value * attribute_transformParent_worldScale.y) + attribute_transform_originalWorldScale.y) / attribute_transform.parent.lossyScale.y
+                                                     : attribute_transform.localScale.y;
+        float scale_z = a == TargetAttribute.Scale_Z ? ((attribute_slider.value * attribute_transformParent_worldScale.z) + attribute_transform_originalWorldScale.z) / attribute_transform.parent.lossyScale.z
+                                                     : attribute_transform.localScale.z;
 
         Vector3 newScale = new Vector3(scale_x, scale_y, scale_z);
 
@@ -108,35 +144,43 @@ public class UI_AttributeSlider : MonoBehaviour
     }
 
     private void ApplyModelScaling(Transform bone, Vector3 newScale)
-    {
-        bone.localScale = new Vector3(newScale.x, newScale.y, newScale.z);
-
+    {   
         for (int i = 0; i < bone.childCount; i++)
         {
             Transform attribute_transformChild = bone.GetChild(i);
 
-            if (!attribute_transformChildren_data.ContainsKey(attribute_transformChild))
+            bool isBoneScripted = false;
+            foreach (UI_AttributeSlider script in attribute_transformChildren_scripts)
             {
-                Dictionary<string, Vector3> bone_transformComponents = new Dictionary<string, Vector3>();
-                bone_transformComponents.Add("original_pos", attribute_transformChild.position);
-                bone_transformComponents.Add("original_rot", attribute_transformChild.eulerAngles);
-                bone_transformComponents.Add("original_scale", attribute_transformChild.localScale);
-
-                attribute_transformChildren_data.Add(attribute_transformChild, bone_transformComponents);
+                if (attribute_transformChild == script.GetBoneReference() || attribute_transformChild == script.GetMirrorBoneReference())
+                    isBoneScripted = true;
             }
 
-            Vector3 attribute_transformChild_originalScale = attribute_transformChildren_data[attribute_transformChild]["original_scale"];
+            if (!isBoneScripted)
+            {
+                if (!attribute_transformChildren_data.ContainsKey(attribute_transformChild))
+                {
+                    Dictionary<string, Vector3> bone_transformComponents = new Dictionary<string, Vector3>();
+                    bone_transformComponents.Add("original_pos", attribute_transformChild.position);
+                    bone_transformComponents.Add("original_rot", attribute_transformChild.eulerAngles);
+                    bone_transformComponents.Add("original_scale", attribute_transformChild.lossyScale);
 
-            attribute_transformChild.localScale = new Vector3(attribute_transformChild_originalScale.x * (1.0f / newScale.x),
-                                                              attribute_transformChild_originalScale.y * (1.0f / newScale.y),
-                                                              attribute_transformChild_originalScale.z * (1.0f / newScale.z));
+                    attribute_transformChildren_data.Add(attribute_transformChild, bone_transformComponents);
+                }
+
+                Vector3 attribute_transformChild_originalWorldScale = attribute_transformChildren_data[attribute_transformChild]["original_scale"];
+
+                attribute_transformChild.localScale = new Vector3(attribute_transformChild_originalWorldScale.x / bone.lossyScale.x,
+                                                                    attribute_transformChild_originalWorldScale.y / bone.lossyScale.y,
+                                                                    attribute_transformChild_originalWorldScale.z / bone.lossyScale.z);
+            }
         }
 
-        if (attribute_transformChildren_data.ContainsKey(bone))
+        bone.localScale = newScale;
+
+        foreach (UI_AttributeSlider childScript in attribute_transformChildren_scripts)
         {
-            attribute_transformChildren_data[bone]["original_pos"] = bone.position;
-            attribute_transformChildren_data[bone]["original_rot"] = bone.eulerAngles;
-            attribute_transformChildren_data[bone]["original_scale"] = bone.localScale;
+            childScript.UpdateModel();
         }
     }
 }
