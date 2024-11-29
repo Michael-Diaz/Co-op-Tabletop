@@ -35,6 +35,8 @@ public class GridPlacementSystem : MonoBehaviour
         furnitureData = new();
     }
 
+    /* Initializes the Building State variable to the PlacementState and 
+     * adds the PlaceStructure function to the inputManager.OnClicked event and the StopPlacement to the inputManager.OnExt event */
     public void StartPlacement(int ID)
     {
         StopPlacement();
@@ -47,6 +49,8 @@ public class GridPlacementSystem : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
+    /* Initializes the Building State variable to the RemovingState and 
+     * adds the PlaceStructure function to the inputManager.OnClicked event and the StopPlacement to the inputManager.OnExt event */
     public void StartRemoving()
     {
         StopPlacement();
@@ -57,6 +61,7 @@ public class GridPlacementSystem : MonoBehaviour
         inputManager.OnExit += StopPlacement;
     }
 
+    /* Uses the BuildingState interface function OnAction to either place or remove the object depending on initialization */
     private void PlaceStructure()
     {
         if (inputManager.IsPointerOverUI())
@@ -70,6 +75,8 @@ public class GridPlacementSystem : MonoBehaviour
         buildingState.OnAction(gridPosition);
     }
 
+    /* Disables the grid visualization, uses the EndState interface function for the initialized state, takes the PlaceStructure and StopPlacement functions
+     * from the inputManager event and sets the buildingState to null */
     public void StopPlacement()
     {
         if(buildingState == null)
@@ -89,6 +96,7 @@ public class GridPlacementSystem : MonoBehaviour
         buildingState = null;
     }
 
+    /* If the BuildingState is initialized and the mouse has moved, use the UpdateState interface function to update the mouse cursor */
     private void Update()
     {
         if(buildingState == null)

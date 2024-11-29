@@ -35,11 +35,14 @@ public class PlacementState : IBuildingState
         }
     }
 
+    /* Calls the StopShowingPreview function from the previewSystem */
     public void EndState()
     {
         previewSystem.StopShowingPreview();
     }
 
+    /* If the placement is valid, this function uses the objectPlacer to place the object and then add the object to the Dictionary in selectedData.
+     * This function then Updates the position */
     public void OnAction(Vector3Int gridPosition)
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
@@ -69,6 +72,7 @@ public class PlacementState : IBuildingState
         return database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
     }
 
+    /* Calls the UpdatePosition in the previewSystem to update the cursor position and color */
     public void UpdateState(Vector3Int gridPosition)
     {
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);

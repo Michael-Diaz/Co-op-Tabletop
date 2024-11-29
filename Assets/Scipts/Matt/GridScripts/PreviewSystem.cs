@@ -26,6 +26,7 @@ public class PreviewSystem : MonoBehaviour
         cellIndicatorRenderer = cellIndicator.GetComponentsInChildren<Renderer>();
     }
 
+    /* Starts the preview by instantiating the object that is going to be placed and calling the PreparePreview and PrepareCursor functions */
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
         previewObject = Instantiate(prefab);
@@ -35,6 +36,7 @@ public class PreviewSystem : MonoBehaviour
         cellIndicator.SetActive(true);
     }
 
+    /* This changed the cursor scale so that it fits to any object passed */
     private void PrepareCursor(Vector2Int size)
     {
         if(size.x > 0 || size.y > 0)
@@ -43,6 +45,7 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
+    /* This changes the color of the preview to either white or red depending on if its valid or invalid */
     private void PreparePreview(GameObject previewObject)
     {
         Renderer[] renderers = previewObject.GetComponentsInChildren<Renderer>();
@@ -60,6 +63,7 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
+    /* This disabled the cellIndicator and destroys the previewObject if it exists */
     public void StopShowingPreview()
     {
         cellIndicator.SetActive(false);
@@ -69,6 +73,7 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
+    /* This updates the position and color of the cursor and preview if the preview exists */
     public void UpdatePosition(Vector3 position, bool validity)
     {
         if(previewObject != null)
@@ -81,6 +86,7 @@ public class PreviewSystem : MonoBehaviour
         ApplyFeedbackToCursor(validity);
     }
 
+    /* This changes the color of the previewMaterialInstance depending on Validity */
     private void ApplyFeedbackToPreview(bool validity)
     {
         Color c = validity ? Color.white : Color.red;
@@ -89,6 +95,7 @@ public class PreviewSystem : MonoBehaviour
         previewMaterialInstance.color = c;
     }
 
+    /* This changes the color of the cellMaterialInstance depending on Validity */
     private void ApplyFeedbackToCursor(bool validity)
     {
         Color c = validity ? Color.white : Color.red;
@@ -99,16 +106,19 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
+    /* This moves the Cursor to the sent position */
     private void MoveCursor(Vector3 position)
     {
         cellIndicator.transform.position = position;
     }
 
+    /* This moves the preview to the sent position */
     private void MovePreview(Vector3 position)
     {
         previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
     }
 
+    /* This moves the cursor to the base size and turns the cursor red */
     internal void StartShowingRemovePreview()
     {
         cellIndicator.SetActive(true);

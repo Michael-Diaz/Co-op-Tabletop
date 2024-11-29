@@ -23,11 +23,14 @@ public class RemovingState : IBuildingState
         previewSystem.StartShowingRemovePreview();
     }
 
+    /* Calls the StopShowingPreview function from the previewSystem */
     public void EndState()
     {
         previewSystem.StopShowingPreview();
     }
 
+    /* Sets the selectedData variable to either furnitureData or floorData and then uses the RemoveObjectAt functions to remove it from the Dictionary
+     * and removes it from the scene. It then updates the position of the previewSystem*/
     public void OnAction(Vector3Int gridPosition)
     {
         GridData selectedData = null;
@@ -66,6 +69,7 @@ public class RemovingState : IBuildingState
         return !(furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
     }
 
+    /* Calls the UpdatePosition in the previewSystem to update the cursor position and color */
     public void UpdateState(Vector3Int gridPosition)
     {
         bool validity = CheckIfSelectionIsValid(gridPosition);
