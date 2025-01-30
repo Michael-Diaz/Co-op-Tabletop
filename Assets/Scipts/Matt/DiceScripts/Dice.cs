@@ -53,7 +53,7 @@ public class Dice : MonoBehaviour
         {
             timerRunning = false;
 
-            Destroy(this.gameObject);
+            Destroy(this.gameObject.transform.parent.gameObject);
         }
     }
 

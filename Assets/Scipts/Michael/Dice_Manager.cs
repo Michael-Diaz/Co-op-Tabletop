@@ -135,11 +135,13 @@ public class Dice_Manager : MonoBehaviour
     // Will roll a single die and then wait for the event invoked by that die to return the value associated with it
     private async Task<int> ThrowDie(string die_name)
     {
-        GameObject die = (GameObject)Instantiate(dice_dictionary[die_name], new Vector3(0, 3, 0), Quaternion.identity);
+        Transform cam = Camera.main.transform;
+
+        GameObject die = (GameObject) Instantiate(dice_dictionary[die_name], cam.position + (cam.forward * 3.0f), Quaternion.identity);
         Dice die_script;
 
         die_script = die.GetComponentInChildren<Dice>();
-        die_script.ThrowDice(new Vector3(0, .5f, 1), 5);
+        die_script.ThrowDice(cam.forward, 5);
 
         int die_retVal = -1;
 

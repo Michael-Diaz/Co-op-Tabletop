@@ -33,13 +33,17 @@ public class UI_DiceRoller : MonoBehaviour
 
         if (dice_total > 0)
         {
-            dice_sum = await Dice_Manager.Instance.DiceSum(dice_counts, 0);
+            Dictionary<string, int> dice_countsStorage = new Dictionary<string, int>(dice_counts);
+
+            PressCancel();
+
+            dice_sum = await Dice_Manager.Instance.DiceSum(dice_countsStorage, 0);
             output += dice_sum.ToString();
 
             Debug.Log(output);
         }
-
-        PressCancel();
+        else
+            PressCancel();
     }
 
     public void PressCancel()
