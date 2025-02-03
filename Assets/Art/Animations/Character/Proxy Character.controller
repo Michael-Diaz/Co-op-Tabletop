@@ -321,7 +321,7 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5625923577561411352}
-    m_Position: {x: 230, y: 370, z: 0}
+    m_Position: {x: 240, y: 370, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 8515421105421176140}
@@ -339,18 +339,18 @@ AnimatorStateMachine:
   - {fileID: -2565912854294933469}
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -3928917581629181867}
-    second:
-    - {fileID: 7706317658243051080}
-  - first: {fileID: 2522461497422663660}
-    second:
-    - {fileID: 1581100497988346644}
-    - {fileID: -2371967678815507708}
   - first: {fileID: 8515421105421176140}
     second:
     - {fileID: -8550254285398625548}
     - {fileID: 6714374637311811620}
     - {fileID: 594940154880652962}
+  - first: {fileID: 2522461497422663660}
+    second:
+    - {fileID: 1581100497988346644}
+    - {fileID: -2371967678815507708}
+  - first: {fileID: -3928917581629181867}
+    second:
+    - {fileID: 7706317658243051080}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: -20, z: 0}
   m_EntryPosition: {x: 50, y: 200, z: 0}
@@ -920,49 +920,49 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsDead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Held Item Enum
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Damage Type Enum
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Cast
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Switch State
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Take Damage
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

@@ -23,11 +23,13 @@ public class UI_AttributeSlider : MonoBehaviour
 
     [Header("Bone Reference(s)")]
 
+    // The bone the slider is referencing
     [SerializeField] private Transform attribute_transform;
     private Vector3 attribute_transform_originalPosition;
     private Vector3 attribute_transform_originalRotation;
     private Vector3 attribute_transform_originalWorldScale;
 
+    // The mirror of the reference bone (allows mirroring of attributes equally)
     [SerializeField] private bool attribute_isMirrored;
     [SerializeField] private Transform attribute_transformMirror;
     private Vector3 attribute_transformMirror_originalPosition;
@@ -43,11 +45,15 @@ public class UI_AttributeSlider : MonoBehaviour
 
     private Slider attribute_slider;
 
+    private Vector3 testing_posOffset;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Gets a reference to the slider component in the prefab
         attribute_slider = GetComponent<Slider>();
 
+        // 
         attribute_transform_originalPosition = attribute_transform.position;
         attribute_transform_originalRotation = attribute_transform.eulerAngles;
         attribute_transform_originalWorldScale = attribute_transform.lossyScale;
@@ -102,6 +108,13 @@ public class UI_AttributeSlider : MonoBehaviour
         }
     }
 
+    public void LateUpdate()
+    {
+        attribute_transform.localPosition += testing_posOffset;
+        if (attribute_isMirrored)
+            attribute_transformMirror.localPosition += new Vector3(-testing_posOffset.x, testing_posOffset.y, testing_posOffset.z);
+    }
+
     private void UpdateModelPosition(TargetAttribute a)
     {
         float pos_x = a == TargetAttribute.Position_X ? attribute_slider.value + attribute_transformMirror_originalPosition.x : attribute_transform.position.x;
@@ -109,6 +122,13 @@ public class UI_AttributeSlider : MonoBehaviour
         float pos_z = a == TargetAttribute.Position_Z ? attribute_slider.value + attribute_transformMirror_originalPosition.z : attribute_transform.position.z;
 
         attribute_transform.position = new Vector3(pos_x, pos_y, pos_z);
+
+        if (a == TargetAttribute.Position_X)
+            testing_posOffset.x = attribute_slider.value;
+        if (a == TargetAttribute.Position_Y)
+            testing_posOffset.y = attribute_slider.value;
+        if (a == TargetAttribute.Position_Z)
+            testing_posOffset.z = attribute_slider.value;
     }
 
     private void UpdateModelRotation(TargetAttribute a)
@@ -118,6 +138,8 @@ public class UI_AttributeSlider : MonoBehaviour
         float rot_z = a == TargetAttribute.Rotation_Z ? attribute_slider.value : attribute_transform.eulerAngles.z;
 
         attribute_transform.rotation = Quaternion.Euler(rot_x, rot_y, rot_z);
+
+
     }
 
     private void UpdateModelScale(TargetAttribute a)
