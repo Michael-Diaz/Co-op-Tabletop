@@ -77,6 +77,18 @@ public class UI_AttributeSlider : MonoBehaviour
         return attribute_transformMirror;
     }
 
+    public float GetSliderValue()
+    {
+        return attribute_slider.value;
+    }
+
+    public void SetSliderValue(float value)
+    {
+        attribute_slider.value = value;
+        UpdateModel();  // Apply the loaded value to the model
+    }
+
+
     public Dictionary<string, Vector3> GetOriginalBoneTransform()
     {
         Dictionary<string, Vector3> retVal = new Dictionary<string, Vector3>();
