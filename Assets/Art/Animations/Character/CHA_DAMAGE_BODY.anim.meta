@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Animations/Character/CHA_DAMAGE_BODY.anim.meta
 guid: 6f5a954476631bc41aa261d7f8613ae0
+========
+guid: 2bd874bcc1a49844aa3e83e03d304b92
+>>>>>>>> Art-Integration-Catchup:Assets/Art/Animations/Character/CHA_ATK_BOW.anim.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 7400000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

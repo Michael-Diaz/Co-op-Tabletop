@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Animations/Character/CHA_DAMAGE_PSY.anim.meta
 guid: 5887cb0572e1dd840aa2fe480b4cf89a
+========
+guid: ccf93242a25ea5c4fbe579e9cb6a02dc
+>>>>>>>> Art-Integration-Catchup:Assets/Art/Animations/Character/CHA_ATK_MAGIC_ARCANE.anim.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 7400000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

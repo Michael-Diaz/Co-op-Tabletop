@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Animations/Character/CHA_DEATH.anim.meta
 guid: 7546d5894cd697940a1c79d0ce90c7f3
+========
+guid: 0d2a7c3cded10124ab6968fda4bac31b
+>>>>>>>> Art-Integration-Catchup:Assets/Art/Animations/Character/CHA_ATK_MAGIC_NATURE.anim.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 7400000
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
