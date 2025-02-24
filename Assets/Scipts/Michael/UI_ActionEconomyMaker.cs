@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,6 +6,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
+using static UnityEngine.Rendering.DebugUI;
 
 public class UI_ActionEconomyMaker : MonoBehaviour
 {
@@ -15,13 +18,19 @@ public class UI_ActionEconomyMaker : MonoBehaviour
     [SerializeField] private float actionEconomyBar_interiorLength;
     private List<RectTransform> actionEconomyBar_activeActions;
 
-    [SerializeField] // Delete this, only being used for testing until the action_prefab is clickable
+    [SerializeField] private GameObject actionCategoryBar_content;
+    private List<RectTransform> actionCategoryBar_possibleActions;
+
+    [SerializeField] private TMP_InputField actionCategory_textField;
+
+    [SerializeField] // Delete the serialization, only being used for testing until the action_prefab is clickable
     private RectTransform action_selected;
 
     // Start is called before the first frame update
     void Start()
     {
         actionEconomyBar_activeActions = new List<RectTransform>();
+        actionCategoryBar_possibleActions = new List<RectTransform>();
     }
 
     // Update is called once per frame
@@ -31,7 +40,27 @@ public class UI_ActionEconomyMaker : MonoBehaviour
 
     public void CreateAction()
     {
+        if (string.IsNullOrEmpty(actionCategory_textField.text))
+        {
+            return;
+        }
 
+        RectTransform action_nameMatch = actionCategoryBar_possibleActions.FirstOrDefault(a => a.GetChild(1).GetComponent<TextMeshProUGUI>().text == actionCategory_textField.text);
+        if (action_nameMatch != null)
+        {
+            return;
+        }
+
+        GameObject action_created;
+
+        action_created = Instantiate(action_prefab, actionCategoryBar_content.transform.position, Quaternion.identity, actionCategoryBar_content.transform);
+        action_created.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = actionCategory_textField.text; // This is the text in the category text box
+
+        actionCategory_textField.Select();
+        actionCategory_textField.text = "";
+
+        actionCategoryBar_possibleActions.Add(action_created.GetComponent<RectTransform>());
+        actionCategoryBar_possibleActions = actionCategoryBar_possibleActions.OrderBy(a => a.GetChild(1).GetComponent<TextMeshProUGUI>().text).ToList();
     }
 
     public void AddToActionEconomy()
