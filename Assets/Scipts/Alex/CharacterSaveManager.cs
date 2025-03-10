@@ -130,20 +130,8 @@ public class CharacterSaveManager : MonoBehaviour
                         bone.localPosition = boneData.position;
                         bone.localEulerAngles = boneData.rotation;
 
-                        // Correctly apply scaling
-                        if (bone.parent != null)
-                        {
-                            Vector3 parentWorldScale = bone.parent.lossyScale; // Get parent's actual world scale
-                            bone.localScale = new Vector3(
-                                boneData.worldScale.x / parentWorldScale.x,
-                                boneData.worldScale.y / parentWorldScale.y,
-                                boneData.worldScale.z / parentWorldScale.z
-                            );
-                        }
-                        else
-                        {
-                            bone.localScale = boneData.worldScale; // Root bone directly gets world scale
-                        }
+                        // Simply reapply the saved local scale data to our freshly spawned bone
+                        bone.localScale = boneData.localScale;
 
                         break;
                     }
