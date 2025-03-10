@@ -8,6 +8,8 @@ public class SaveSlotUI : MonoBehaviour
     public CharacterSaveManager saveManager;
     public TMPro.TMP_Dropdown saveSlotDropdown;
     public TMPro.TMP_InputField saveSlotInputField;
+    public GameObject characterGameObject;
+    public Transform characterSpawnTransform;
 
     void Start()
     {
@@ -23,7 +25,7 @@ public class SaveSlotUI : MonoBehaviour
 
     public void SaveCurrentCharacter()
     {
-        saveManager.SaveCharacter(saveSlotInputField.text);
+        saveManager.SaveCharacter(saveSlotInputField.text, characterGameObject);
         UpdateSaveSlots();
     }
 
@@ -31,8 +33,12 @@ public class SaveSlotUI : MonoBehaviour
     {
         if (saveSlotDropdown.options.Count > 0)
         {
-            saveManager.LoadCharacter(saveSlotDropdown.options[saveSlotDropdown.value].text);
-            saveSlotInputField.text = saveSlotDropdown.options[saveSlotDropdown.value].text;
+            saveManager.LoadCharacter(saveSlotDropdown.options[saveSlotDropdown.value].text, characterSpawnTransform);
+
+            if (saveSlotInputField)
+            {
+                saveSlotInputField.text = saveSlotDropdown.options[saveSlotDropdown.value].text;
+            }
         }
     }
 }

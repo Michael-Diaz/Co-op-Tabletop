@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -12,14 +11,41 @@ public class SliderData
 }
 
 [System.Serializable]
+public class BoneTransformData
+{
+    public string boneName;
+    public Vector3 position;
+    public Vector3 rotation;
+    public Vector3 localScale;  // Store the actual local scale
+    public Vector3 worldScale;  // Store lossyScale (for reference, but not to be applied directly)
+}
+
+[System.Serializable]
 public class CharacterSaveSlot
 {
-    public List<SliderData> sliders = new List<SliderData>();
+    public string characterPrefabName; // Reference to the character prefab
+    public List<BoneTransformData> bones = new List<BoneTransformData>();
 }
 
 public class CharacterSaveManager : MonoBehaviour
 {
     private string saveDirectory;
+    private static CharacterSaveManager instance;
+    public GameObject characterPrefab;
+
+    private void Awake()
+    {
+        // Init the singleton instance
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -35,7 +61,7 @@ public class CharacterSaveManager : MonoBehaviour
     }
 
     // Function to save the current character under a written name
-    public void SaveCharacter(string slotName)
+    public void SaveCharacter(string slotName, GameObject character)
     {
         if (string.IsNullOrEmpty(slotName))
         {
@@ -45,16 +71,23 @@ public class CharacterSaveManager : MonoBehaviour
 
         string savePath = Path.Combine(saveDirectory, slotName + ".json");
         CharacterSaveSlot saveData = new CharacterSaveSlot();
-        UI_AttributeSlider[] sliders = FindObjectsOfType<UI_AttributeSlider>();
+        saveData.characterPrefabName = characterPrefab.name; //"Assets/Prefabs/Alex/Default";//character.name; // Store prefab name
 
-        foreach (UI_AttributeSlider slider in sliders)
+        // Save bone transform data
+        SkinnedMeshRenderer skinnedMeshRenderer = character.GetComponentInChildren<SkinnedMeshRenderer>();
+        if (skinnedMeshRenderer != null)
         {
-            SliderData sliderData = new SliderData
+            foreach (Transform bone in skinnedMeshRenderer.bones)
             {
-                attributeName = slider.name,
-                value = slider.GetSliderValue()
-            };
-            saveData.sliders.Add(sliderData);
+                saveData.bones.Add(new BoneTransformData
+                {
+                    boneName = bone.name,
+                    position = bone.localPosition,
+                    rotation = bone.localEulerAngles,
+                    localScale = bone.localScale, // Store actual local scale
+                    worldScale = bone.lossyScale  // Store lossyScale for debugging/reference
+                });
+            }
         }
 
         string json = JsonUtility.ToJson(saveData, true);
@@ -64,34 +97,62 @@ public class CharacterSaveManager : MonoBehaviour
 
     // Function that loads the currently selected save slot
     // shown on the dropdown
-    public void LoadCharacter(string slotName)
+    public GameObject LoadCharacter(string slotName, Transform spawnPoint)
     {
         string savePath = Path.Combine(saveDirectory, slotName + ".json");
 
-        if (File.Exists(savePath))
+        if (!File.Exists(savePath)) 
         {
-            string json = File.ReadAllText(savePath);
-            CharacterSaveSlot saveData = JsonUtility.FromJson<CharacterSaveSlot>(json);
-            UI_AttributeSlider[] sliders = FindObjectsOfType<UI_AttributeSlider>();
+            Debug.LogWarning("Save slot not found: " + slotName);
+            return null;
+        }
 
-            foreach (SliderData sliderData in saveData.sliders)
+        string json = File.ReadAllText(savePath);
+        CharacterSaveSlot saveData = JsonUtility.FromJson<CharacterSaveSlot>(json);
+
+        GameObject character = Instantiate(characterPrefab, spawnPoint.position, spawnPoint.rotation);
+        if (character == null)
+        {
+            Debug.LogError("Character failed to spawn!");
+        }
+
+        // Load bone transforms
+        SkinnedMeshRenderer skinnedMeshRenderer = character.GetComponentInChildren<SkinnedMeshRenderer>();
+        if (skinnedMeshRenderer != null)
+        {
+            foreach (BoneTransformData boneData in saveData.bones)
             {
-                foreach (UI_AttributeSlider slider in sliders)
+                foreach (Transform bone in skinnedMeshRenderer.bones)
                 {
-                    if (slider.name == sliderData.attributeName)
+                    if (bone.name == boneData.boneName)
                     {
-                        slider.SetSliderValue(sliderData.value);
+                        // Restore local position and rotation
+                        bone.localPosition = boneData.position;
+                        bone.localEulerAngles = boneData.rotation;
+
+                        // Correctly apply scaling
+                        if (bone.parent != null)
+                        {
+                            Vector3 parentWorldScale = bone.parent.lossyScale; // Get parent's actual world scale
+                            bone.localScale = new Vector3(
+                                boneData.worldScale.x / parentWorldScale.x,
+                                boneData.worldScale.y / parentWorldScale.y,
+                                boneData.worldScale.z / parentWorldScale.z
+                            );
+                        }
+                        else
+                        {
+                            bone.localScale = boneData.worldScale; // Root bone directly gets world scale
+                        }
+
                         break;
                     }
                 }
             }
+        }
 
-            Debug.Log("Character loaded from: " + savePath);
-        }
-        else
-        {
-            Debug.LogWarning("Save slot not found: " + slotName);
-        }
+        Debug.Log("Character loaded from: " + savePath);
+        return character;
     }
 
     // Function to retrieve all named character save slots.
