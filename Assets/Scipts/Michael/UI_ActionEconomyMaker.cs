@@ -55,6 +55,7 @@ public class UI_ActionEconomyMaker : MonoBehaviour
 
         action_created = Instantiate(action_prefab, actionCategoryBar_content.transform.position, Quaternion.identity, actionCategoryBar_content.transform);
         action_created.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = actionCategory_textField.text; // This is the text in the category text box
+        action_created.GetComponent<UI_ActionContainer>().PostInstantiationSetup(this, true);
 
         actionCategory_textField.Select();
         actionCategory_textField.text = "";
@@ -137,9 +138,25 @@ public class UI_ActionEconomyMaker : MonoBehaviour
             Destroy(inactiveAction.gameObject);
         }
 
+        actionCategoryBar_possibleActions.Remove(action_selected);
+        //actionCategoryBar_possibleActions = actionCategoryBar_possibleActions.OrderBy(a => a.GetChild(1).GetComponent<TextMeshProUGUI>().text).ToList();
+
         Destroy(action_selected.gameObject);
         action_selected = null;
 
         ResizeActiveActions();
+    }
+
+    public void SetActiveAction(RectTransform action_selectedNew)
+    {
+        if (action_selected != null)
+            action_selected.GetComponent<UI_ActionContainer>().DeactivateIndicator();
+
+        action_selected = action_selectedNew;
+    }
+
+    public void ResetActiveAction()
+    {
+        action_selected = null;
     }
 }
